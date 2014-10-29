@@ -1,3 +1,5 @@
+#!/usr/bin/env node --harmony
+
 const
    fs = require('fs'),
    filename = process.argv[2];

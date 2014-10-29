@@ -1,3 +1,4 @@
+#!/usr/bin/env node --harmony
 const fs = require('fs');
 fs.readFile ('target.txt', function (err, data) {
   if (err) {
