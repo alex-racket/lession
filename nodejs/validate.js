@@ -3,6 +3,8 @@
 "use strict";
 
 const
+  user = "devops",
+  command = 'w',
   fs = require('fs'),
   spawn = require('child_process').spawn,
   filename = process.argv[2];
@@ -13,24 +15,28 @@ if (!filename) {
 
 var
    fileContent = '',
+   host ='',
    array = [];
 
 fs.readFile(filename, function (err, fileContent) {
   if (err) { throw err; };
   array = fileContent.toString().replace(/\r\n|\r|\n/g, "").replace(/\s+/g, " ").split(" ");
-  return array;
-
 });
 
-  var count=array.length;
-  while (count>0) {
+var count=array.length;
+  console.log(array);
+while (count>0) {
     count--;
     console.log(array[count]);
-    let ssh = spawn('ssh', ['devops@' + array[count] + ' w']);
-    ssh.stdout.pipe(process.stdout);
-  };
+    spawnCmd(array[count]);
+};
 
-console.log();
+
+function spawnCmd(host) {
+  let result = spawn('ssh', [user+'@'+host + ' ' + command]);
+  console.log(result);
+  result.stdout.pipe(process.stdout);
+};
 
 /**
 fs.watch(filename, function() {
